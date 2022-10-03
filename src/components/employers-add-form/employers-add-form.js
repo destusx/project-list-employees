@@ -18,10 +18,21 @@ class EmployersAddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
+        if (this.state.name.length < 3 || !this.state.salary || this.state.name.replace(/[A-Za-z]/g, '')) {
+            document.querySelectorAll('.add-form .form-control').forEach(item => {
+                item.style.border = '1px solid red'
+            })
+            alert('Введите коректные данные, имя латинскими буквами')
+            return
+         }
+
         this.props.onAdd(this.state.name, this.state.salary);
         this.setState({
             name: '',
             salary: ''
+        })
+        document.querySelectorAll('.add-form .form-control').forEach(item => {
+            item.style.border = '1px solid #ced4da'
         })
     }
 
