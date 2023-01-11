@@ -1,68 +1,64 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import './employers-add-form.css';
 
-class EmployersAddForm extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            name: '',
-            salary: ''
+const EmployersAddForm = (props) => {
+    const [name, setName] = useState('');
+    const [salary, setSalary] = useState('');
+
+    const onValueChange = (e) => {
+        if (e.target.name === 'name') {
+            setName(e.target.value);
         }
-    }
+        if (e.target.name === 'salary') {
+            setSalary(e.target.value);
+        }
+    };
 
-    onValueChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    onSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        if (this.state.name.length < 3 || !this.state.salary || this.state.name.replace(/[A-Za-z]/g, '')) {
-            document.querySelectorAll('.add-form .form-control').forEach(item => {
-                item.style.border = '1px solid red'
-            })
-            alert('Введите коректные данные, имя латинскими буквами')
-            return
-         }
+        if (name.length < 3 || !salary || name.replace(/[A-Za-z]/g, '')) {
+            document.querySelectorAll('.add-form .form-control').forEach((item) => {
+                item.style.border = '1px solid red';
+            });
+            alert('Некоректные данные, имя латинскими буквами');
+            return;
+        }
 
-        this.props.onAdd(this.state.name, this.state.salary);
-        this.setState({
-            name: '',
-            salary: ''
-        })
-        document.querySelectorAll('.add-form .form-control').forEach(item => {
-            item.style.border = '1px solid #ced4da'
-        })
-    }
+        props.onAdd(name, salary);
+        setName('');
+        setSalary('');
+        document.querySelectorAll('.add-form .form-control').forEach((item) => {
+            item.style.border = '1px solid #ced4da';
+        });
+    };
 
-    render() {
-        const {name, salary} = this.state;
-        return (
-            <div className="app-add-form">
+    return (
+        <div className="app-add-form">
             <h3>Добавьте нового сотрудника</h3>
-                <form
-                    className="add-form d-flex"
-                    onSubmit = {this.onSubmit}>
-                    <input type="text"
-                        className="form-control new-post-label"
-                        placeholder="Как его зовут?"
-                        name='name'
-                        value={name}
-                        onChange={this.onValueChange}/>
-                    <input type="number"
-                        className="form-control new-post-label"
-                        placeholder="З/П в $?"
-                        name='salary'
-                        value={salary}
-                        onChange={this.onValueChange}/>
-    
-                    <button type="submit"
-                            className="btn btn-outline-light">Добавить</button>
-                </form>
-            </div>
-        )
-    }
-}
+            <form className="add-form d-flex" onSubmit={onSubmit}>
+                <input
+                    type="text"
+                    className="form-control new-post-label"
+                    placeholder="Как его зовут?"
+                    name="name"
+                    value={name}
+                    onChange={onValueChange}
+                />
+                <input
+                    type="number"
+                    className="form-control new-post-label"
+                    placeholder="З/П в $?"
+                    name="salary"
+                    value={salary}
+                    onChange={onValueChange}
+                />
+
+                <button type="submit" className="btn btn-outline-light">
+                    Добавить
+                </button>
+            </form>
+        </div>
+    );
+};
 
 export default EmployersAddForm;

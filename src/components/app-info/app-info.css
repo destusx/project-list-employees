@@ -1,7 +1,28 @@
 .app-info {
-    padding: 25px;
+    padding: 20px;
     background-color: #3d5a80;
     border-radius: 4px;
     box-shadow: 15px 15px 30px rgba(0, 0, 0, .15);
     color: #fff;
+}
+
+.app-info .fa-star, .app-info .fa-cookie {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+    color: #FFD700;
+}
+
+.app-info .fa-cookie {
+    color: #e09f3e;
+    font-size: 19px;
+    margin-left: 20px;
+
+}
+
+.app-info__icons {
+    display: flex;
+    align-items: center;
 }
