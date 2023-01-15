@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
 import AppFilter from '../app-filter/app-filter';
@@ -11,7 +12,7 @@ const App = () => {
     const [userId, setUserId] = useState(6);
     const [term, setTerm] = useState('');
     const [filter, setFilter] = useState('all');
-    const [employees, setEmployees] = useState([
+    const [employees, setEmployees] = useLocalStorage('employees', [
         {
             name: 'John C.',
             salary: 800,
@@ -50,7 +51,10 @@ const App = () => {
     ]);
 
     const deleteItem = (id) => {
-        setEmployees((employees) => employees.filter((item) => item.id !== id));
+        setEmployees((employees) => {
+            setUserId((userId) => userId + 1);
+            return employees.filter((item) => item.id !== id);
+        });
     };
 
     const addItem = (name, salary) => {
@@ -109,7 +113,6 @@ const App = () => {
     const employeesCount = employees.length;
     const increased = employees.filter((item) => item.increase).length;
     const visibleData = filterItem(searchEmp(employees, term), filter);
-    console.log(visibleData);
 
     return (
         <div className="app">
