@@ -1,13 +1,25 @@
+import { useEffect } from 'react';
+import { useState } from 'react';
+
 import './app-info.css';
 
-const AppInfo = ({ increased, employeesCount }) => {
-    const checkLocalData = localStorage.getItem('employees') !== null ? true : false;
+const AppInfo = ({
+    increased,
+    employeesCount,
+    setEmployees,
+    initialData,
+    statusLocalStorage,
+    setStatusLocalStorage,
+}) => {
+    console.log(statusLocalStorage);
 
     const clearLocalStorage = () => {
+        setEmployees(initialData);
         localStorage.clear();
+        setStatusLocalStorage(false);
     };
 
-    const buttonClear = checkLocalData ? (
+    const onClearButton = statusLocalStorage ? (
         <button
             onClick={clearLocalStorage}
             type="button"
@@ -26,7 +38,7 @@ const AppInfo = ({ increased, employeesCount }) => {
                 <i className="fas fa-star"></i> - сотрудник на повышение (клик на
                 имя)
                 <i className="fas fa-cookie"></i> - сотрудник получает премию
-                {buttonClear}
+                {onClearButton}
             </div>
         </div>
     );
