@@ -58,6 +58,7 @@ const App = () => {
     const deleteItem = id => {
         setEmployees(employees => {
             setUserId(userId => userId + 1);
+            setStatusLocalStorage(statusLocalStorage => true);
             return employees.filter(item => item.id !== id);
         });
     };
@@ -91,11 +92,14 @@ const App = () => {
     };
 
     const searchEmp = (items, term) => {
+        const termLowerCase = term.toLowerCase();
         if (items.length === 0) {
             return items;
         }
 
-        return items.filter(item => item.name.indexOf(term) > -1);
+        return items.filter(
+            item => item.name.toLowerCase().indexOf(termLowerCase) > -1
+        );
     };
 
     const onUpdateSearch = term => {

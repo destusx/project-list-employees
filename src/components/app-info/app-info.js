@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-import { useState } from 'react';
-
 import './app-info.css';
 
 const AppInfo = ({
@@ -11,8 +8,6 @@ const AppInfo = ({
     statusLocalStorage,
     setStatusLocalStorage,
 }) => {
-    console.log(statusLocalStorage);
-
     const clearLocalStorage = () => {
         setEmployees(initialData);
         localStorage.clear();
