@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import './employers-add-form.css';
 
-const EmployersAddForm = (props) => {
+const EmployersAddForm = props => {
     const [name, setName] = useState('');
     const [salary, setSalary] = useState('');
 
-    const onValueChange = (e) => {
+    const onValueChange = e => {
         if (e.target.name === 'name') {
             setName(e.target.value);
         }
@@ -14,20 +14,20 @@ const EmployersAddForm = (props) => {
         }
     };
 
-    const onSubmit = (e) => {
+    const onSubmit = e => {
         e.preventDefault();
         if (name.length < 3 || !salary || name.replace(/[A-Za-z]/g, '')) {
-            document.querySelectorAll('.add-form .form-control').forEach((item) => {
+            document.querySelectorAll('.add-form .form-control').forEach(item => {
                 item.style.border = '1px solid red';
             });
-            alert('Некоректные данные, имя латинскими буквами');
+            alert('Используйте только буквы(латинские)');
             return;
         }
 
         props.onAdd(name, salary);
         setName('');
         setSalary('');
-        document.querySelectorAll('.add-form .form-control').forEach((item) => {
+        document.querySelectorAll('.add-form .form-control').forEach(item => {
             item.style.border = '1px solid #ced4da';
         });
     };
